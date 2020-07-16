@@ -42,16 +42,3 @@ class Fundamental
 		500::ms => now;
 	}
 }
-
-
-
-
-
-
-
-
-
-// w.closeFile;
-//dac => WvOut w => blackhole;
-//me.dir() + "test.wav" => w.wavFilename;
-
