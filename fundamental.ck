@@ -1,5 +1,5 @@
 // Snare Fundamental Generator
-class Fundamental
+public class Fundamental
 {
 	SinOsc s => ADSR e => Gain v => dac; //N2S: is there a better way to route this in for post processing?
 
@@ -7,10 +7,10 @@ class Fundamental
 	200 => int fundamentalPitch;
 	0.9 => float fundamentalGain;
 	30::ms => dur holdTime;
-	50::ms => dur releaseTime
+	50::ms => dur releaseTime;
 	0::ms => dur attackTime;
 	attackTime => dur decayTime;
-	1.0 => sustainLevel;
+	1.0 => float sustainLevel;
 
 	fun void setPitch(int pitch)
 	{
