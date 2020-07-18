@@ -1,12 +1,12 @@
 // This is where the different parts of the snare will come together.
-Hid hid;
-HidMsg msg;
 Event e;
 Transient transient;
 Fundamental fundamental;
 Tail tail;
+Gain g => Dyno d => dac;
 dac => WvOut w => blackhole;
 me.dir() + "test.wav" => w.wavFilename;
+0 => int flam; // Set to 1 for flam
 
 fun void snareEvent(Event e, string s)
 {
@@ -22,15 +22,28 @@ fun void snareEvent(Event e, string s)
 	{
 		fundamental.strikeSnare();
 	}
+	else if (s == "flam")
+	{
+		fundamental.flam();
+	}
 	else
 	{
 		<<<"Invalid!">>>;
 	}
 }
 
+transient.connect(g);
+fundamental.connect(g);
+tail.connect(g);
+d.limit();
+d.thresh(0.9);
+1.2 => g.gain;
+
+
 spork ~ snareEvent(e, "tail");
 spork ~ snareEvent(e, "transient");
 spork ~ snareEvent(e, "fundamental");
+if(flam) spork ~ snareEvent(e, "flam");
 10::ms => now;
 e.broadcast();
 1::second => now;
@@ -39,6 +52,8 @@ w.closeFile;
 
 // N2S: Currently, this does not work. Figure out how to make it work.
 /*
+HidMsg msg;
+Hid hid;
 1 => int device; // if your keyboard does not work, change this number to 0, then 2, 3, etc. until it works!
 if(hid.openKeyboard(device) == false) me.exit();
 <<<"keyboard:", hid.name(), "ready!">>>;

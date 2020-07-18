@@ -1,12 +1,12 @@
 // Snare Tail Generator
 public class Tail
 {
-	Noise n => Envelope e => Gain g => dac;
+	Noise n => Envelope e => Gain g;
 
 	// Init Values
-	0.9 => float tailGain;
+	0.7 => float tailGain;
 	1::ms => dur attackTime;
-	200::ms => dur decayTime;
+	185::ms => dur decayTime;
 
 	fun void setGain(float gain)
 	{
@@ -30,4 +30,8 @@ public class Tail
 		decayTime + 10::ms => now;
 	}
 
+	fun void connect(UGen ugen)
+	{
+		g => ugen;
+	}
 }

@@ -1,11 +1,12 @@
 //Snare Transient Generator
 public class Transient
 {
-	Noise n => Envelope e => Gain g => dac;
-	// SinOsc s => e; // IMPLEMENT ME
+	Noise n => Envelope e => Gain g;
+	Impulse i => g;
+	//SinOsc s => e; // IMPLEMENT ME
 
 	// Init Values
-	5::ms => dur clickTime;
+	10::ms => dur clickTime;
 	0.9 => float clickGain;
 
 	fun void setLength(dur length)
@@ -23,6 +24,12 @@ public class Transient
 		clickGain => g.gain;
 		clickTime => e.duration;
 		1 => e.keyOff;
+		1.0 => i.next;
 		30::ms => now;
+	}
+
+	fun void connect(UGen ugen)
+	{
+		g => ugen;
 	}
 }

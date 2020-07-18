@@ -11,6 +11,6 @@ this is an attempt to code a drum machine-y snare from scratch.
 to use: run the initialize function. the snare should be saved into the chuck_snare directory as "test.wav" 
 
 to be implemented:
-*on the fly parameter changes
-*a ui
-*post processing
+on the fly parameter changes
+a ui
+post processing
